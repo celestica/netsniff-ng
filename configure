@@ -27,6 +27,8 @@ ENABLE_DEBUG=0
 PREFIX="/usr/local"
 SYSCONF_DIR="/etc"
 
+EXTRA_FLAGS="--sysroot=/repo/onie/build/user/armv8a-g6.3.0-lnx4.9.124-glibc-2.25/dev-sysroot"
+
 usage()
 {
 	echo "Usage: ./configure [OPTION]... [VAR=VALUE]..."
@@ -224,7 +226,7 @@ EOF
 	LDFLAGS="-L $NACL_LIB_DIR"
 	CFLAGS="-I $NACL_INC_DIR"
 
-	$CC $CFLAGS $LDFLAGS -o $TMPDIR/nacltest $TMPDIR/nacltest.c >> config.log 2>&1
+	$CC $EXTRA_FLAGS $CFLAGS $LDFLAGS -o $TMPDIR/nacltest $TMPDIR/nacltest.c -lsodium >> config.log 2>&1
 	if [ ! -x $TMPDIR/nacltest ] ; then
 		echo "[NO]"
 		MISSING_NACL=1
@@ -588,7 +590,8 @@ int main(void)
 }
 EOF
 
-	$CC -o $TMPDIR/pcaptest $TMPDIR/pcaptest.c -lpcap >> config.log 2>&1
+	$CC $EXTRA_FLAGS -o $TMPDIR/pcaptest $TMPDIR/pcaptest.c -lpcap >> config.log 2>&1
+
 	if [ ! -x $TMPDIR/pcaptest ] ; then
 		echo "[NO]"
 		echo "CONFIG_LIBPCAP=0" >> Config
@@ -663,7 +666,7 @@ int main(void)
 }
 EOF
 
-	$CC -o $TMPDIR/clitest $TMPDIR/clitest.c -lcli >> config.log 2>&1
+	$CC $EXTRA_FLAGS -o $TMPDIR/clitest $TMPDIR/clitest.c -lcli >> config.log 2>&1
 	if [ ! -x $TMPDIR/clitest ] ; then
 		echo "[NO]"
 		MISSING_DEFS=1
@@ -687,7 +690,7 @@ int main(void)
 }
 EOF
 
-	$CC -o $TMPDIR/nettest $TMPDIR/nettest.c -lnet >> config.log 2>&1
+	$CC $EXTRA_FLAGS -o $TMPDIR/nettest $TMPDIR/nettest.c -lnet >> config.log 2>&1
 	if [ ! -x $TMPDIR/nettest ] ; then
 		echo "[NO]"
 		MISSING_DEFS=1
