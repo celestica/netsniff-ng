@@ -2,3 +2,4 @@
 
 curvetun: LDFLAGS += -L ${CONFIG_NACL_LIB_DIR}
 mausezahn: CFLAGS = $(mausezahn-eflags)
+mausezahn: LDFLAGS += -L/repo/onie/build/user/armv8a-g6.3.0-lnx4.9.124-glibc-2.25/dev-sysroot/usr/lib
