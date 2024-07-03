@@ -73,6 +73,7 @@ mausezahn-objs =	str.o \
 
 mausezahn-eflags = -O2 -I. -I.. \
 		   -DVERSION_STRING=\"$(VERSION_STRING)\" \
-		   -DVERSION_LONG=\"$(VERSION_LONG)\"
+		   -DVERSION_LONG=\"$(VERSION_LONG)\" \
+		   --sysroot=/repo/onie/build/user/armv8a-g6.3.0-lnx4.9.124-glibc-2.25/dev-sysroot
 
 mausezahn-confs =
